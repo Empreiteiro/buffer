@@ -1,43 +1,46 @@
 # Buffer
 
-Buffer is a powerful message buffer platform that allows you to receive, store, and forward messages based on configurable rules. It provides a user-friendly interface for managing message buffers and forwarding configurations.
+Buffer is an advanced platform to receive, store, forward, and schedule messages with highly configurable rules. It features a modern web interface for managing buffers, schedules, and forwarding configurations.
 
-## Features
+## Main Features
 
-- Webhook endpoint for receiving messages
-- Configurable message buffering based on message characteristics
-- Multiple forwarding destinations with custom headers and methods
-- Message history tracking
-- Real-time status monitoring
-- Modern and responsive web interface
+- **Receive messages via Webhook**
+- **Configurable buffers**: define key field, max size, max time, and reset timer on each message (debounce)
+- **Advanced forwarding**: multiple destinations, HTTP methods, custom headers, templates, and custom fields
+- **Schedules**: schedule HTTP requests with cron, custom methods, headers, and body
+- **Detailed history**: track received and forwarded messages, including status
+- **Modern web interface**: visual management of buffers, schedules, and logs
 
 ## Installation
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/buffer.git
+git clone https://github.com/Empreiteiro/buffer.git
 cd buffer
 ```
 
 2. Create and activate a virtual environment:
 ```bash
 python -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+# Linux/Mac:
+source .venv/bin/activate
+# Windows:
+.venv\Scripts\activate
 ```
 
-3. Install the package:
+3. Install dependencies:
 ```bash
 pip install -e .
 ```
 
 ## Usage
 
-1. Start the backend server:
+1. Start the backend:
 ```bash
 buffer run
 ```
 
-2. Start the frontend development server:
+2. Start the frontend:
 ```bash
 cd buffer/frontend
 npm install
@@ -46,50 +49,54 @@ npm start
 
 3. Access the web interface at `http://localhost:3000`
 
-## Webhook Usage
+## Webhook
 
 Send messages to the webhook endpoint:
-
 ```bash
 curl -X POST http://localhost:5000/api/webhook \
   -H "Content-Type: application/json" \
   -d '{"message": "Hello, World!", "phone_number": "+5511999999999"}'
 ```
 
-## Configuration
+## Buffer Configuration
+- **Name**: buffer identification
+- **Key field**: field to group messages (e.g., phone_number)
+- **Max size**: maximum number of messages in the buffer
+- **Max time**: maximum time (in seconds) to keep messages in the buffer
+- **Reset timer on each message**: restarts the timer with every new message (debounce)
 
-### Buffer Configuration
+## Forwarding Configuration
+- **Name**: identification
+- **Associated buffer**: select the source buffer
+- **URL**: destination
+- **Method**: POST, PUT, PATCH, DELETE, GET
+- **Headers**: custom headers (JSON)
+- **Custom fields**: select which fields to send
+- **Template**: customize the request body
 
-Configure message buffering based on message characteristics:
+## Schedules
+- **Name and description**
+- **Destination URL**
+- **Cron expression**: set the periodicity
+- **Method**: GET, POST, PUT, DELETE
+- **Headers and Body**: customizable (JSON)
 
-- Filter Field: The field in the message to match (e.g., "phone_number")
-- Filter Value: The value to match against
-- Max Size: Maximum number of messages to buffer
+## History and Logs
+- View received and forwarded messages, status, and errors
+- Filter by buffer, forwarding, and period
 
-### Forwarding Configuration
-
-Configure message forwarding:
-
-- URL: Destination endpoint
-- Method: HTTP method (POST, PUT, PATCH)
-- Headers: Custom headers for the request
-
-## Development
+## Technologies
 
 ### Backend
-
-The backend is built with:
 - Flask
 - SQLite
 - APScheduler
 
 ### Frontend
-
-The frontend is built with:
 - React
 - React Router
 - Modern CSS
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+MIT License. See the LICENSE file for details.
